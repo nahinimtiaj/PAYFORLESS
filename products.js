@@ -8,7 +8,7 @@ const DEFAULT_PRODUCTS = [
     description: 'A timeless black overcoat crafted from premium Italian wool blend. Features a refined silhouette with notched lapels and a single-breasted closure.',
     fabric: '80% Wool, 20% Cashmere', sizes: ['XS','S','M','L','XL'],
     colors: [{name:'Black',hex:'#1a1a1a'},{name:'Charcoal',hex:'#3d3d3d'},{name:'Navy',hex:'#1c2841'}],
-    images: ['assets/images/hero-1.png'], badge: 'Best Seller', rating: 4.8, reviews: 124,
+    images: ['hero-1.png'], badge: 'Best Seller', rating: 4.8, reviews: 124,
     featured: true, bestSeller: true, newArrival: false
   },
   {
@@ -16,7 +16,7 @@ const DEFAULT_PRODUCTS = [
     description: 'Elegant flowing midi dress in luxurious silk. Features a draped neckline and a relaxed yet refined fit.',
     fabric: '100% Mulberry Silk', sizes: ['XS','S','M','L'],
     colors: [{name:'Cream',hex:'#f5f0e8'},{name:'Blush',hex:'#e8c4b8'},{name:'Black',hex:'#1a1a1a'}],
-    images: ['assets/images/hero-2.png'], badge: 'New', rating: 4.9, reviews: 87,
+    images: ['hero-2.png'], badge: 'New', rating: 4.9, reviews: 87,
     featured: true, bestSeller: false, newArrival: true
   },
   {
@@ -24,7 +24,7 @@ const DEFAULT_PRODUCTS = [
     description: 'Hand-stitched leather jacket made from full-grain lambskin. Buttery soft with a modern slim fit.',
     fabric: '100% Lambskin Leather', sizes: ['S','M','L','XL'],
     colors: [{name:'Black',hex:'#1a1a1a'},{name:'Brown',hex:'#5c3a21'}],
-    images: ['assets/images/product-jacket.png'], badge: 'Premium', rating: 4.9, reviews: 203,
+    images: ['product-jacket.png'], badge: 'Premium', rating: 4.9, reviews: 203,
     featured: true, bestSeller: true, newArrival: false
   },
   {
@@ -32,7 +32,7 @@ const DEFAULT_PRODUCTS = [
     description: 'Ultra-soft merino wool crew neck sweater. Lightweight warmth with a clean minimal aesthetic.',
     fabric: '100% Extra Fine Merino Wool', sizes: ['XS','S','M','L','XL'],
     colors: [{name:'Ivory',hex:'#f0ead6'},{name:'Grey',hex:'#8a8a8a'},{name:'Black',hex:'#1a1a1a'}],
-    images: ['assets/images/hero-1.png'], badge: '', rating: 4.7, reviews: 156,
+    images: ['hero-1.png'], badge: '', rating: 4.7, reviews: 156,
     featured: true, bestSeller: true, newArrival: false
   },
   {
@@ -40,7 +40,7 @@ const DEFAULT_PRODUCTS = [
     description: 'Perfectly tailored slim-fit trousers with a modern tapered leg. Designed for effortless sophistication.',
     fabric: '98% Cotton, 2% Elastane', sizes: ['28','30','32','34','36'],
     colors: [{name:'Black',hex:'#1a1a1a'},{name:'Charcoal',hex:'#3d3d3d'},{name:'Beige',hex:'#c8b89a'}],
-    images: ['assets/images/hero-2.png'], badge: '', rating: 4.6, reviews: 98,
+    images: ['hero-2.png'], badge: '', rating: 4.6, reviews: 98,
     featured: false, bestSeller: false, newArrival: true
   },
   {
@@ -48,7 +48,7 @@ const DEFAULT_PRODUCTS = [
     description: 'Breathable linen shirt with a relaxed fit. Perfect for warm-weather layering with an effortless drape.',
     fabric: '100% French Linen', sizes: ['XS','S','M','L','XL'],
     colors: [{name:'White',hex:'#ffffff'},{name:'Sand',hex:'#c2b280'},{name:'Sage',hex:'#9caf88'}],
-    images: ['assets/images/product-jacket.png'], badge: 'New', rating: 4.5, reviews: 64,
+    images: ['product-jacket.png'], badge: 'New', rating: 4.5, reviews: 64,
     featured: false, bestSeller: false, newArrival: true
   },
   {
@@ -56,7 +56,7 @@ const DEFAULT_PRODUCTS = [
     description: 'Luxuriously soft cashmere blend scarf. An essential accessory that elevates any ensemble.',
     fabric: '70% Cashmere, 30% Silk', sizes: ['One Size'],
     colors: [{name:'Camel',hex:'#c19a6b'},{name:'Grey',hex:'#8a8a8a'},{name:'Black',hex:'#1a1a1a'}],
-    images: ['assets/images/hero-1.png'], badge: '', rating: 4.8, reviews: 73,
+    images: ['/hero-1.png'], badge: '', rating: 4.8, reviews: 73,
     featured: true, bestSeller: false, newArrival: true
   },
   {
@@ -64,7 +64,7 @@ const DEFAULT_PRODUCTS = [
     description: 'Impeccably structured double-breasted blazer. A wardrobe cornerstone for both formal and casual styling.',
     fabric: '95% Virgin Wool, 5% Elastane', sizes: ['XS','S','M','L','XL'],
     colors: [{name:'Black',hex:'#1a1a1a'},{name:'Navy',hex:'#1c2841'}],
-    images: ['assets/images/hero-2.png'], badge: 'Best Seller', rating: 4.7, reviews: 189,
+    images: ['hero-2.png'], badge: 'Best Seller', rating: 4.7, reviews: 189,
     featured: true, bestSeller: true, newArrival: false
   },
   {
@@ -72,7 +72,7 @@ const DEFAULT_PRODUCTS = [
     description: 'Premium heavyweight cotton t-shirt with a boxy fit. The foundation of minimal everyday style.',
     fabric: '100% Organic Cotton, 280gsm', sizes: ['XS','S','M','L','XL','XXL'],
     colors: [{name:'White',hex:'#ffffff'},{name:'Black',hex:'#1a1a1a'},{name:'Grey',hex:'#8a8a8a'}],
-    images: ['assets/images/product-jacket.png'], badge: '', rating: 4.6, reviews: 312,
+    images: ['product-jacket.png'], badge: '', rating: 4.6, reviews: 312,
     featured: false, bestSeller: true, newArrival: false
   },
   {
@@ -80,7 +80,7 @@ const DEFAULT_PRODUCTS = [
     description: 'Flowing wide-leg pants in a luxurious drape fabric. Statement-making silhouette with effortless elegance.',
     fabric: '70% Triacetate, 30% Polyester', sizes: ['XS','S','M','L'],
     colors: [{name:'Black',hex:'#1a1a1a'},{name:'Cream',hex:'#f5f0e8'}],
-    images: ['assets/images/hero-1.png'], badge: 'New', rating: 4.5, reviews: 45,
+    images: ['hero-1.png'], badge: 'New', rating: 4.5, reviews: 45,
     featured: false, bestSeller: false, newArrival: true
   },
   {
@@ -88,7 +88,7 @@ const DEFAULT_PRODUCTS = [
     description: 'Full-grain leather belt with a brushed silver buckle. Minimalist design, maximum impact.',
     fabric: '100% Full-Grain Leather', sizes: ['S','M','L'],
     colors: [{name:'Black',hex:'#1a1a1a'},{name:'Brown',hex:'#5c3a21'}],
-    images: ['assets/images/hero-2.png'], badge: '', rating: 4.7, reviews: 156,
+    images: ['hero-2.png'], badge: '', rating: 4.7, reviews: 156,
     featured: false, bestSeller: true, newArrival: false
   },
   {
@@ -96,7 +96,7 @@ const DEFAULT_PRODUCTS = [
     description: 'Showstopping satin gown with a cowl neckline and open back. Designed for unforgettable evenings.',
     fabric: '100% Silk Satin', sizes: ['XS','S','M','L'],
     colors: [{name:'Champagne',hex:'#f7e7ce'},{name:'Black',hex:'#1a1a1a'}],
-    images: ['assets/images/product-jacket.png'], badge: 'Premium', rating: 4.9, reviews: 67,
+    images: ['product-jacket.png'], badge: 'Premium', rating: 4.9, reviews: 67,
     featured: true, bestSeller: false, newArrival: true
   }
 ];
