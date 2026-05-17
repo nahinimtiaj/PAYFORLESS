@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout — PAY FOR LESS</title>
+  <meta name="description" content="Complete your PAY FOR LESS order. Secure checkout with worldwide shipping.">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+  <nav class="navbar solid" id="navbar">
+    <a href="index.html" class="nav-logo">PAY FOR LESS</a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="nav-link">Home</a></li>
+      <li><a href="shop.html" class="nav-link">Shop</a></li>
+      <li><a href="cart.html" class="nav-link">Cart</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="nav-icon-btn nav-cart-btn" aria-label="Cart"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg><span class="cart-badge">0</span></button>
+      <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+  <div class="mobile-menu"><a href="index.html">Home</a><a href="shop.html">Shop</a><a href="cart.html">Cart</a></div>
+
+  <section class="checkout-section">
+    <div class="container">
+      <div class="checkout-grid">
+        <div>
+          <h1 style="font-family:var(--font-display);font-size:2rem;margin-bottom:32px;">Checkout</h1>
+          <form id="checkout-form">
+            <h3 style="font-family:var(--font-display);font-size:1.3rem;margin-bottom:20px;">Contact Information</h3>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="fullName">Full Name *</label>
+                <input type="text" id="fullName" name="fullName" required placeholder="John Smith">
+                <span class="field-error"></span>
+              </div>
+              <div class="form-group">
+                <label for="email">Email Address *</label>
+                <input type="email" id="email" name="email" required placeholder="john@example.com">
+                <span class="field-error"></span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone Number *</label>
+              <input type="tel" id="phone" name="phone" required placeholder="+1 (234) 567-890">
+              <span class="field-error"></span>
+            </div>
+
+            <h3 style="font-family:var(--font-display);font-size:1.3rem;margin:32px 0 20px;">Shipping Address</h3>
+            <div class="form-group">
+              <label for="address">Street Address *</label>
+              <input type="text" id="address" name="address" required placeholder="123 Fashion Avenue">
+              <span class="field-error"></span>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="city">City *</label>
+                <input type="text" id="city" name="city" required placeholder="New York">
+                <span class="field-error"></span>
+              </div>
+              <div class="form-group">
+                <label for="state">State / Province *</label>
+                <input type="text" id="state" name="state" required placeholder="NY">
+                <span class="field-error"></span>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="zip">ZIP / Postal Code *</label>
+                <input type="text" id="zip" name="zip" required placeholder="10001">
+                <span class="field-error"></span>
+              </div>
+              <div class="form-group">
+                <label for="country">Country *</label>
+                <input type="text" id="country" name="country" required placeholder="United States" value="United States">
+                <span class="field-error"></span>
+              </div>
+            </div>
+
+            <h3 style="font-family:var(--font-display);font-size:1.3rem;margin:32px 0 20px;">Additional Notes</h3>
+            <div class="form-group">
+              <label for="notes">Order Notes (optional)</label>
+              <textarea id="notes" name="notes" rows="3" placeholder="Special instructions for your order..."></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-full btn-lg" style="margin-top:12px;">Place Order</button>
+            <p style="text-align:center;font-size:12px;color:var(--color-gray);margin-top:16px;">By placing this order, you agree to our Terms of Service and Privacy Policy.</p>
+          </form>
+        </div>
+        <div>
+          <div class="cart-summary-card">
+            <h3>Order Summary</h3>
+            <div id="checkout-items"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container"><div class="footer-bottom"><p>&copy; 2026 PAY FOR LESS. All rights reserved.</p></div></div>
+  </footer>
+
+  <script src="js/utils.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/products.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/checkout.js"></script>
+  <script src="js/app.js"></script>
+  <script>document.addEventListener('DOMContentLoaded', initCheckout);</script>
+</body>
+</html>

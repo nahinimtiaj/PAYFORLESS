@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shopping Cart — PAY FOR LESS</title>
+  <meta name="description" content="Your PAY FOR LESS shopping cart. Review your selections and proceed to checkout.">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+  <nav class="navbar solid" id="navbar">
+    <a href="index.html" class="nav-logo">PAY FOR LESS</a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="nav-link">Home</a></li>
+      <li><a href="shop.html" class="nav-link">Shop</a></li>
+      <li><a href="shop.html?category=outerwear" class="nav-link">Categories</a></li>
+      <li><a href="about.html" class="nav-link">About</a></li>
+      <li><a href="contact.html" class="nav-link">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="nav-icon-btn nav-search-btn" aria-label="Search"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button>
+      <button class="nav-icon-btn nav-cart-btn" aria-label="Cart"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg><span class="cart-badge">0</span></button>
+      <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+  <div class="mobile-menu"><a href="index.html">Home</a><a href="shop.html">Shop</a><a href="about.html">About</a><a href="contact.html">Contact</a></div>
+  <div class="search-overlay"><div class="search-container"><input type="text" class="search-input" placeholder="Search..."></div><button class="search-close">✕</button></div>
+
+  <div class="page-header"><div><h1>Shopping Cart</h1><p class="breadcrumb"><a href="index.html">Home</a> / Cart</p></div></div>
+
+  <section class="section">
+    <div class="container">
+      <!-- Empty State -->
+      <div class="cart-empty" id="cart-empty">
+        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        <h2>Your cart is empty</h2>
+        <p>Looks like you haven't added any items yet.</p>
+        <a href="shop.html" class="btn btn-primary">Start Shopping</a>
+      </div>
+      <!-- Cart Content -->
+      <div class="cart-content" id="cart-content">
+        <div>
+          <div id="cart-items"></div>
+        </div>
+        <div class="cart-summary-card">
+          <h3>Order Summary</h3>
+          <div id="cart-summary"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom"><p>&copy; 2026 PAY FOR LESS. All rights reserved.</p></div>
+    </div>
+  </footer>
+
+  <script src="js/utils.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/products.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/app.js"></script>
+  <script>document.addEventListener('DOMContentLoaded', renderCartPage);</script>
+</body>
+</html>

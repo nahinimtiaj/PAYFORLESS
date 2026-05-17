@@ -1,0 +1,148 @@
+/* ============================================
+   PAY FOR LESS Fashion — Design System & Global Styles
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* ---- CSS Custom Properties ---- */
+:root {
+  --color-black: #0a0a0a;
+  --color-dark: #1a1a1a;
+  --color-charcoal: #2d2d2d;
+  --color-gray-dark: #4a4a4a;
+  --color-gray: #8a8a8a;
+  --color-gray-light: #c4c4c4;
+  --color-silver: #e5e5e5;
+  --color-off-white: #f5f3f0;
+  --color-cream: #faf8f5;
+  --color-white: #ffffff;
+  --color-gold: #b8860b;
+  --color-gold-light: #d4a843;
+  --color-error: #c0392b;
+  --color-success: #27ae60;
+
+  --font-display: 'Cormorant Garamond', 'Georgia', serif;
+  --font-body: 'Inter', 'Helvetica Neue', sans-serif;
+
+  --nav-height: 72px;
+  --container-width: 1280px;
+  --container-padding: 20px;
+  --radius: 4px;
+  --radius-lg: 8px;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+  --shadow-md: 0 4px 20px rgba(0,0,0,0.1);
+  --shadow-lg: 0 10px 40px rgba(0,0,0,0.15);
+  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ---- Reset & Base ---- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+body {
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--color-dark);
+  background: var(--color-white);
+  overflow-x: hidden;
+}
+body.menu-open { overflow: hidden; }
+img { max-width: 100%; height: auto; display: block; }
+a { text-decoration: none; color: inherit; transition: color var(--transition); }
+ul, ol { list-style: none; }
+button { cursor: pointer; border: none; background: none; font-family: inherit; font-size: inherit; }
+input, textarea, select {
+  font-family: var(--font-body);
+  font-size: 14px;
+  border: 1px solid var(--color-silver);
+  padding: 12px 16px;
+  border-radius: var(--radius);
+  outline: none;
+  transition: border-color var(--transition);
+  width: 100%;
+  background: var(--color-white);
+}
+input:focus, textarea:focus, select:focus { border-color: var(--color-dark); }
+input.error, textarea.error { border-color: var(--color-error); }
+::selection { background: var(--color-dark); color: var(--color-white); }
+
+/* ---- Scrollbar ---- */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--color-cream); }
+::-webkit-scrollbar-thumb { background: var(--color-gray-light); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-gray); }
+
+/* ---- Typography ---- */
+h1, h2, h3, h4, h5, h6 { font-family: var(--font-display); font-weight: 400; line-height: 1.2; letter-spacing: -0.02em; }
+h1 { font-size: clamp(2.2rem, 5vw, 3.8rem); }
+h2 { font-size: clamp(1.8rem, 4vw, 2.8rem); }
+h3 { font-size: clamp(1.3rem, 3vw, 1.8rem); }
+.section-title { text-align: center; margin-bottom: 48px; }
+.section-title h2 { margin-bottom: 12px; }
+.section-title p { color: var(--color-gray); font-size: 14px; text-transform: uppercase; letter-spacing: 3px; font-weight: 500; }
+
+/* ---- Layout ---- */
+.container { max-width: var(--container-width); margin: 0 auto; padding: 0 var(--container-padding); }
+.section { padding: 80px 0; }
+.section-alt { background: var(--color-cream); }
+
+/* ---- Buttons ---- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 14px 32px; font-size: 13px; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 2px; border-radius: var(--radius); transition: all var(--transition);
+  position: relative; overflow: hidden;
+}
+.btn-primary { background: var(--color-dark); color: var(--color-white); }
+.btn-primary:hover { background: var(--color-charcoal); transform: translateY(-1px); box-shadow: var(--shadow-md); }
+.btn-outline { border: 1.5px solid var(--color-dark); color: var(--color-dark); background: transparent; }
+.btn-outline:hover { background: var(--color-dark); color: var(--color-white); }
+.btn-white { background: var(--color-white); color: var(--color-dark); }
+.btn-white:hover { background: var(--color-off-white); }
+.btn-full { width: 100%; }
+.btn-sm { padding: 10px 20px; font-size: 12px; }
+.btn-lg { padding: 18px 48px; font-size: 14px; }
+
+/* ---- Animations ---- */
+[data-animate] { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
+[data-animate="fade-left"] { transform: translateX(-30px); }
+[data-animate="fade-right"] { transform: translateX(30px); }
+[data-animate="scale"] { transform: scale(0.95); }
+[data-animate].animated { opacity: 1; transform: translate(0) scale(1); }
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+
+/* ---- Toast Notifications ---- */
+.toast-notification {
+  position: fixed; bottom: 30px; right: 30px; z-index: 10000;
+  background: var(--color-dark); color: var(--color-white);
+  padding: 16px 24px; border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg); transform: translateX(120%);
+  transition: transform 0.3s ease; max-width: 360px;
+}
+.toast-show { transform: translateX(0); }
+.toast-content { display: flex; align-items: center; gap: 12px; }
+.toast-icon { font-size: 18px; }
+.toast-error { background: var(--color-error); }
+
+/* ---- Field Error ---- */
+.field-error { color: var(--color-error); font-size: 12px; margin-top: 4px; display: none; }
+.form-group { margin-bottom: 20px; }
+.form-group label { display: block; font-size: 13px; font-weight: 500; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 1px; color: var(--color-gray-dark); }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+/* ---- Loading Skeleton ---- */
+.skeleton { background: linear-gradient(90deg, var(--color-silver) 25%, var(--color-off-white) 50%, var(--color-silver) 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite; border-radius: var(--radius); }
+@keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+
+/* ---- Responsive ---- */
+@media (max-width: 768px) {
+  .section { padding: 50px 0; }
+  .form-row { grid-template-columns: 1fr; }
+  .section-title { margin-bottom: 32px; }
+  :root { --nav-height: 60px; --container-padding: 16px; }
+}
