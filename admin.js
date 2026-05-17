@@ -15,7 +15,7 @@ function showAdminLogin() {
   app.innerHTML = `
     <div class="admin-login">
       <div class="admin-login-card">
-        <h1 class="admin-logo">MAISON</h1>
+        <h1 class="admin-logo">PAY FOR LESS</h1>
         <p class="admin-subtitle">Admin Panel</p>
         <form onsubmit="handleAdminLogin(event)">
           <div class="form-group">
