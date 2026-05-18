@@ -73,7 +73,7 @@
       const id = Utils.getParam('id');
       const product = DataStore.getProductById(id);
       if (!product) { window.location.href = 'shop.html'; return; }
-      document.title = `${product.name} — MAISON`;
+      document.title = `${product.name} — PAY FOR LESS`;
       selectedSize = product.sizes[0];
       selectedColor = product.colors[0].name;
       renderProductDetail(product);
