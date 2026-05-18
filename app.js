@@ -1,5 +1,5 @@
 // ============================================
-// MAISON Fashion — Core App Logic
+// PAY FOR LESS — Core App Logic
 // ============================================
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -179,5 +179,5 @@ function initContactForm() {
 
 // ---- WhatsApp Button ----
 function openWhatsApp() {
-  window.open('https://wa.me/971562918675?text=Hello! I have a question about MAISON products.', '_blank');
+  window.open('https://wa.me/971562918675?text=Hello! I have a question about PAY FOR LESS products.', '_blank');
 }
