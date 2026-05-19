@@ -135,7 +135,7 @@
   <script>
     let currentFilters = { category: 'all', sort: 'featured', maxPrice: 600, size: null, search: '' };
 
-    document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('DOMContentLoaded', async () => {
       // Read URL params
       const urlCat = Utils.getParam('category');
       const urlSearch = Utils.getParam('search');
@@ -148,7 +148,7 @@
         document.querySelector('.page-header h1').textContent = 'Your Wishlist';
       }
 
-      renderShopProducts();
+      await renderShopProducts();
 
       // Category filters
       document.querySelectorAll('#category-filters .filter-btn').forEach(btn => {
@@ -194,23 +194,41 @@
       }
     });
 
-    function renderShopProducts() {
-      const wishlistOnly = Utils.getParam('wishlist') === 'true';
-      let products = getFilteredProducts(currentFilters);
-      if (wishlistOnly) {
-        const wishlist = DataStore.getWishlist();
-        products = products.filter(p => wishlist.includes(p.id));
-      }
-      const grid = document.getElementById('shop-products');
-      const count = document.getElementById('results-count');
-      if (count) count.textContent = `${products.length} product${products.length !== 1 ? 's' : ''}`;
-      if (grid) {
-        grid.innerHTML = products.length
-          ? products.map(p => renderProductCard(p)).join('')
-          : '<p style="grid-column:1/-1;text-align:center;color:var(--color-gray);padding:60px 0;">No products found matching your criteria.</p>';
-        Utils.initScrollAnimations();
-      }
+    async function renderShopProducts() {
+
+  const wishlistOnly = Utils.getParam('wishlist') === 'true';
+
+  let products = await getFilteredProducts(currentFilters);
+
+  if (wishlistOnly) {
+    const wishlist = await DataStore.getWishlist();
+    products = products.filter(p => wishlist.includes(p.id));
+  }
+
+  const grid = document.getElementById('shop-products');
+  const count = document.getElementById('results-count');
+
+  if (count) {
+    count.textContent =
+      `${products.length} product${products.length !== 1 ? 's' : ''}`;
+  }
+
+  if (grid) {
+
+    if (products.length) {
+
+      await renderProductGrid(products, grid);
+
+    } else {
+
+      grid.innerHTML = `
+        <p style="grid-column:1/-1;text-align:center;color:var(--color-gray);padding:60px 0;">
+          No products found matching your criteria.
+        </p>
+      `;
+
     }
-  </script>
-</body>
-</html>
+
+    Utils.initScrollAnimations();
+  }
+}
