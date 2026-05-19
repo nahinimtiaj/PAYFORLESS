@@ -1,64 +1,39 @@
 // ============================================
-// PAY FOR LESS — Supabase Configuration
+// PAY FOR LESS — Supabase Config (REAL KEYS)
 // ============================================
-// STEP 1: Replace these two values with your own from:
-//   Supabase Dashboard → Settings → API
-
-const SUPABASE_URL = 'https://fsnboewxnvdpidezykex.supabase.co'; // ← REPLACE THIS
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZzbmJvZXd4bnZkcGlkZXp5a2V4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkwNjE3MzYsImV4cCI6MjA5NDYzNzczNn0.Y1YYE0XKmkqZSmSrJtMkCK9wvDOcWBr47W4ejuq6zZw';                 // ← REPLACE THIS
-
-// Initialize the Supabase client (available globally as `db`)
+const SUPABASE_URL = 'https://fsnboewxnvdpidezykex.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZzbmJvZXd4bnZkcGlkZXp5a2V4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkwNjE3MzYsImV4cCI6MjA5NDYzNzczNn0.Y1YYE0XKmkqZSmSrJtMkCK9wvDOcWBr47W4ejuq6zZw';
+ 
 const { createClient } = supabase;
 const db = createClient(SUPABASE_URL, SUPABASE_KEY);
-
-// ============================================
-// Auth Helpers (used across all pages)
-// ============================================
-
+ 
+// Current logged-in user
 async function getCurrentUser() {
   const { data: { user } } = await db.auth.getUser();
   return user;
 }
-
-async function signUp(email, password, fullName) {
-  const { data, error } = await db.auth.signUp({
-    email,
-    password,
-    options: { data: { full_name: fullName } }
-  });
-  if (error) throw error;
-  return data;
-}
-
-async function logIn(email, password) {
-  const { data, error } = await db.auth.signInWithPassword({ email, password });
-  if (error) throw error;
-  return data;
-}
-
-async function logOut() {
-  await db.auth.signOut();
-  window.location.href = 'index.html';
-}
-
-// Listen for auth changes and update the nav
+ 
+// Auth state change — update nav
 db.auth.onAuthStateChange((event, session) => {
-  updateNavForAuth(session?.user || null);
   if (event === 'SIGNED_IN') {
-    syncLocalCartToSupabase(); // push any guest cart items to Supabase on login
+    syncGuestCartToSupabase();
   }
 });
-
-function updateNavForAuth(user) {
-  // You can add an "Account" link to your nav and control it here
-  const accountLink = document.getElementById('account-link');
-  if (accountLink) {
-    if (user) {
-      accountLink.textContent = 'Account';
-      accountLink.href = 'account.html';
-    } else {
-      accountLink.textContent = 'Login';
-      accountLink.href = 'login.html';
-    }
+ 
+// Sync guest cart on login
+async function syncGuestCartToSupabase() {
+  const local = JSON.parse(localStorage.getItem('pfl_cart') || '[]');
+  if (!local.length) return;
+  const { data: { user } } = await db.auth.getUser();
+  if (!user) return;
+  for (const item of local) {
+    await db.from('cart').upsert({
+      user_id: user.id,
+      product_id: item.productId,
+      size: item.size || '',
+      color: item.color || '',
+      quantity: item.quantity || 1,
+    }, { onConflict: 'user_id,product_id,size,color' });
   }
+  localStorage.removeItem('pfl_cart');
 }
