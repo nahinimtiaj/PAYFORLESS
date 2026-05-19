@@ -156,35 +156,35 @@
           document.querySelector('#category-filters .filter-btn.active')?.classList.remove('active');
           btn.classList.add('active');
         }
-        btn.addEventListener('click', () => {
+        btn.addEventListener('click', async () => {
           document.querySelector('#category-filters .filter-btn.active')?.classList.remove('active');
           btn.classList.add('active');
           currentFilters.category = btn.dataset.category;
-          renderShopProducts();
+          await renderShopProducts();
         });
       });
 
       // Sort
-      document.getElementById('sort-select').addEventListener('change', (e) => {
+      document.getElementById('sort-select').addEventListener('change', async (e) => {
         currentFilters.sort = e.target.value;
-        renderShopProducts();
+        await renderShopProducts();
       });
 
       // Price range
-      document.getElementById('price-filter').addEventListener('input', (e) => {
+      document.getElementById('price-filter').addEventListener('input', async (e) => {
         currentFilters.maxPrice = parseInt(e.target.value);
         document.getElementById('price-max-label').textContent = '$' + e.target.value;
-        renderShopProducts();
+        await renderShopProducts();
       });
 
       // Size filters
       document.querySelectorAll('.size-filter-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
+        btn.addEventListener('click', async () => {
           const wasActive = btn.classList.contains('active');
           document.querySelectorAll('.size-filter-btn').forEach(b => b.classList.remove('active'));
           if (!wasActive) { btn.classList.add('active'); currentFilters.size = btn.dataset.size; }
           else { currentFilters.size = null; }
-          renderShopProducts();
+          await renderShopProducts();
         });
       });
 
