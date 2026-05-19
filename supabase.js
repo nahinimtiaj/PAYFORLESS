@@ -4,7 +4,7 @@
 // STEP 1: Replace these two values with your own from:
 //   Supabase Dashboard → Settings → API
 
-const SUPABASE_URL = 'https://fsnboewxnvdpidezykex.supabase.co/rest/v1/'; // ← REPLACE THIS
+const SUPABASE_URL = 'https://fsnboewxnvdpidezykex.supabase.co'; // ← REPLACE THIS
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZzbmJvZXd4bnZkcGlkZXp5a2V4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkwNjE3MzYsImV4cCI6MjA5NDYzNzczNn0.Y1YYE0XKmkqZSmSrJtMkCK9wvDOcWBr47W4ejuq6zZw';                 // ← REPLACE THIS
 
 // Initialize the Supabase client (available globally as `db`)
