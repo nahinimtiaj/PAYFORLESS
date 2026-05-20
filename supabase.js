@@ -1,38 +1,44 @@
 // ============================================
-// PAY FOR LESS — Supabase Config (REAL KEYS)
+// PAY FOR LESS — Supabase Configuration
+// Real credentials — do not share publicly
 // ============================================
+
 const SUPABASE_URL = 'https://fsnboewxnvdpidezykex.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZzbmJvZXd4bnZkcGlkZXp5a2V4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkwNjE3MzYsImV4cCI6MjA5NDYzNzczNn0.Y1YYE0XKmkqZSmSrJtMkCK9wvDOcWBr47W4ejuq6zZw';
- 
+
 const { createClient } = supabase;
 const db = createClient(SUPABASE_URL, SUPABASE_KEY);
- 
-// Current logged-in user
+
+// ── Auth helpers ──
 async function getCurrentUser() {
   const { data: { user } } = await db.auth.getUser();
   return user;
 }
- 
-// Auth state change — update nav
-db.auth.onAuthStateChange((event, session) => {
+
+async function logOut() {
+  await db.auth.signOut();
+  window.location.reload();
+}
+
+// Sync guest cart to Supabase on login
+db.auth.onAuthStateChange(async (event, session) => {
   if (event === 'SIGNED_IN') {
-    syncGuestCartToSupabase();
+    await syncGuestCart();
   }
 });
- 
-// Sync guest cart on login
-async function syncGuestCartToSupabase() {
+
+async function syncGuestCart() {
+  const user = await getCurrentUser();
+  if (!user) return;
   const local = JSON.parse(localStorage.getItem('pfl_cart') || '[]');
   if (!local.length) return;
-  const { data: { user } } = await db.auth.getUser();
-  if (!user) return;
   for (const item of local) {
     await db.from('cart').upsert({
       user_id: user.id,
       product_id: item.productId,
       size: item.size || '',
       color: item.color || '',
-      quantity: item.quantity || 1,
+      quantity: item.quantity || 1
     }, { onConflict: 'user_id,product_id,size,color' });
   }
   localStorage.removeItem('pfl_cart');
