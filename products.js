@@ -1,24 +1,17 @@
 // ============================================
 // PAY FOR LESS — Product Logic (Supabase version)
 // ============================================
-// renderProductCard() stays mostly the same — just needs async wishlist check.
-// getFilteredProducts() now delegates to DataStore (Supabase).
 
-// ---- Get filtered products (replaces old local filter) ----
-async function getFilteredProducts(filters = {}) {
-  return await DataStore.getProducts(filters);
-}
-
-// ---- Render a product card (async because wishlist check is async) ----
+// ---- Render a single product card (async because wishlist check is async) ----
 async function renderProductCard(product) {
   const isWished = await DataStore.isInWishlist(product.id);
-  const firstColor = (product.colors && product.colors.length > 0) ? product.colors[0] : null;
+  const firstImg = (product.images && product.images.length > 0) ? product.images[0] : 'hero-1.png';
 
   return `
     <div class="product-card" data-animate="fade-up">
       <a href="product.html?id=${product.id}" class="product-card-link">
         <div class="product-card-image">
-          <img src="${product.images[0] || 'hero-1.png'}" alt="${product.name}" loading="lazy">
+          <img src="${firstImg}" alt="${product.name}" loading="lazy" onerror="this.src='hero-1.png'">
           ${product.badge ? `<span class="product-badge">${product.badge}</span>` : ''}
           <div class="product-card-overlay">
             <button class="btn-quick-view" onclick="event.preventDefault();quickAddToCart('${product.id}')">
@@ -56,19 +49,19 @@ async function renderProductCard(product) {
     </div>`;
 }
 
-// ---- Helper: render a list of products into a grid element ----
+// ---- Render a list of products into a grid element ----
+// ALWAYS use this helper instead of calling .map(renderProductCard).join('')
 async function renderProductGrid(products, gridEl) {
   if (!gridEl) return;
   if (!products || products.length === 0) {
-    gridEl.innerHTML = '<p class="no-products" style="grid-column:1/-1;text-align:center;padding:40px 0;color:#888;">No products found.</p>';
+    gridEl.innerHTML = '<p style="grid-column:1/-1;text-align:center;padding:60px 0;color:#888">No products found.</p>';
     return;
   }
-  // Render cards in parallel
   const cards = await Promise.all(products.map(p => renderProductCard(p)));
   gridEl.innerHTML = cards.join('');
 }
 
-// ---- Quick add to cart (default size + first color) ----
+// ---- Quick add to cart from product card ----
 async function quickAddToCart(productId) {
   const product = await DataStore.getProductById(productId);
   if (!product) return;
@@ -76,25 +69,29 @@ async function quickAddToCart(productId) {
     productId: product.id,
     name:      product.name,
     price:     product.price,
-    image:     product.images[0] || '',
-    size:      product.sizes[0] || '',
-    color:     product.colors[0]?.name || '',
+    image:     (product.images || [])[0] || '',
+    size:      (product.sizes || [])[0] || '',
+    color:     (product.colors || [])[0]?.name || '',
     quantity:  1
   });
   Utils.showToast(`${product.name} added to cart`);
 }
 
-// ---- Toggle wishlist ----
+// ---- Toggle wishlist heart button ----
 async function toggleWishlist(productId, btn) {
   const isNowWished = await DataStore.toggleWishlist(productId);
   if (btn) {
     btn.classList.toggle('active', isNowWished);
     const svg = btn.querySelector('svg');
-    svg.setAttribute('fill', isNowWished ? 'currentColor' : 'none');
+    if (svg) svg.setAttribute('fill', isNowWished ? 'currentColor' : 'none');
   }
   Utils.showToast(isNowWished ? 'Added to wishlist' : 'Removed from wishlist');
 }
 
-// initProducts is no longer needed (no localStorage seeding),
-// kept as a no-op so nothing breaks if it's still called somewhere
+// ---- Get filtered products (delegates to DataStore/Supabase) ----
+async function getFilteredProducts(filters = {}) {
+  return await DataStore.getProducts(filters);
+}
+
+// ---- initProducts is no longer needed (no localStorage seeding) ----
 function initProducts() {}
