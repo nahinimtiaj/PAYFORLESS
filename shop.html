@@ -3,21 +3,63 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Shop — PAY FOR LESS Premium Fashion</title>
-  <meta name="description" content="Browse the complete PAY FOR LESS collection. Premium outerwear, dresses, tops, pants, and accessories.">
+  <title>Shop — PAY FOR LESS</title>
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="components.css">
-  <link rel="stylesheet" href="admin.css">
+  <style>
+    .shop-wrap{display:grid;grid-template-columns:220px 1fr;gap:40px;padding:40px 0 80px;max-width:1400px;margin:0 auto;padding-left:40px;padding-right:40px}
+    .filters{border-right:1px solid #eee;padding-right:24px}
+    .filter-group{margin-bottom:28px}
+    .filter-group h4{font-size:11px;letter-spacing:0.2em;text-transform:uppercase;margin-bottom:12px;color:#333}
+    .filter-btn{display:block;width:100%;text-align:left;padding:7px 0;font-size:13px;color:#888;background:none;border:none;cursor:pointer;transition:color .2s}
+    .filter-btn:hover,.filter-btn.active{color:#000;font-weight:500}
+    .size-row{display:flex;flex-wrap:wrap;gap:6px}
+    .size-btn{padding:6px 12px;border:1px solid #ddd;font-size:12px;cursor:pointer;background:#fff;transition:all .2s}
+    .size-btn:hover,.size-btn.active{background:#000;color:#fff;border-color:#000}
+    .shop-header-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}
+    .result-count{font-size:13px;color:#888}
+    .sort-sel{border:1px solid #ddd;padding:8px 12px;font-size:13px;outline:none;cursor:pointer}
+    .product-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+    .product-card{position:relative;background:#fff;cursor:pointer}
+    .product-img{aspect-ratio:3/4;overflow:hidden;position:relative;background:#f5f5f5}
+    .product-img img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease}
+    .product-card:hover .product-img img{transform:scale(1.05)}
+    .product-badge{position:absolute;top:12px;left:12px;background:#000;color:#fff;font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:3px 8px}
+    .product-badge.new{background:#b8966e}
+    .quick-add{position:absolute;bottom:0;left:0;right:0;background:#000;color:#fff;font-size:11px;letter-spacing:.2em;text-transform:uppercase;padding:12px;text-align:center;transform:translateY(100%);transition:transform .3s;border:none;cursor:pointer;width:100%}
+    .product-card:hover .quick-add{transform:translateY(0)}
+    .wish-btn{position:absolute;top:12px;right:12px;width:30px;height:30px;background:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .2s;color:#333}
+    .wish-btn.wished{opacity:1;color:#000}
+    .product-card:hover .wish-btn{opacity:1}
+    .product-info{padding:16px 12px}
+    .product-cat{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#aaa;margin-bottom:4px}
+    .product-name{font-size:14px;margin-bottom:8px}
+    .product-price{font-size:13px;font-weight:500}
+    .product-colors{display:flex;gap:5px;margin-top:6px}
+    .cdot{width:10px;height:10px;border-radius:50%;border:1px solid rgba(0,0,0,.1)}
+    .loading-msg{grid-column:1/-1;text-align:center;padding:80px;color:#aaa;font-size:14px}
+    .empty-msg{grid-column:1/-1;text-align:center;padding:80px;color:#aaa}
+    .page-hdr{background:#0a0a0a;padding:120px 40px 50px;text-align:center}
+    .page-hdr h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,5vw,4rem);color:#fff;font-weight:300;font-style:italic}
+    .page-hdr p{font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-top:10px}
+    .toast-c{position:fixed;bottom:24px;right:24px;z-index:9999;display:flex;flex-direction:column;gap:8px}
+    .toast-item{background:#000;color:#fff;padding:10px 18px;font-size:12px;transform:translateX(120%);transition:transform .3s ease}
+    .toast-item.in{transform:translateX(0)}
+    @media(max-width:900px){
+      .shop-wrap{grid-template-columns:1fr;padding:20px}
+      .filters{display:none}
+      .product-grid{grid-template-columns:repeat(2,1fr)}
+    }
+    @media(max-width:500px){.product-grid{grid-template-columns:1fr}}
+  </style>
 </head>
 <body>
 
-  <!-- Navigation -->
   <nav class="navbar solid" id="navbar">
     <a href="index.html" class="nav-logo">PAY FOR LESS</a>
     <ul class="nav-links">
       <li><a href="index.html" class="nav-link">Home</a></li>
       <li><a href="shop.html" class="nav-link active">Shop</a></li>
-      <li><a href="shop.html?category=outerwear" class="nav-link">Categories</a></li>
       <li><a href="about.html" class="nav-link">About</a></li>
       <li><a href="contact.html" class="nav-link">Contact</a></li>
     </ul>
@@ -38,200 +80,341 @@
     </div>
   </nav>
   <div class="mobile-menu">
-    <a href="index.html">Home</a><a href="shop.html">Shop</a><a href="about.html">About</a><a href="contact.html">Contact</a><a href="cart.html">Cart</a>
+    <a href="index.html">Home</a><a href="shop.html">Shop</a>
+    <a href="about.html">About</a><a href="contact.html">Contact</a><a href="cart.html">Cart</a>
   </div>
   <div class="search-overlay">
     <div class="search-container"><input type="text" class="search-input" placeholder="Search collections..."></div>
     <button class="search-close">✕</button>
   </div>
 
-  <!-- Page Header -->
-  <div class="page-header">
+  <div class="page-hdr">
+    <h1 id="pageTitle">The Collection</h1>
+    <p id="pageSub">Browse our curated selection</p>
+  </div>
+
+  <div class="shop-wrap">
+    <!-- FILTERS -->
+    <aside class="filters">
+      <div class="filter-group">
+        <h4>Category</h4>
+        <button class="filter-btn active" onclick="setCategory('all',this)">All</button>
+        <button class="filter-btn" onclick="setCategory('outerwear',this)">Outerwear</button>
+        <button class="filter-btn" onclick="setCategory('dresses',this)">Dresses</button>
+        <button class="filter-btn" onclick="setCategory('tops',this)">Tops</button>
+        <button class="filter-btn" onclick="setCategory('pants',this)">Pants</button>
+        <button class="filter-btn" onclick="setCategory('accessories',this)">Accessories</button>
+      </div>
+      <div class="filter-group">
+        <h4>Price Range</h4>
+        <input type="range" id="priceRange" min="0" max="600" value="600" style="width:100%;accent-color:#000" oninput="document.getElementById('priceLabel').textContent='$0 – $'+this.value;currentFilters.maxPrice=+this.value;loadProducts()">
+        <div style="display:flex;justify-content:space-between;font-size:12px;color:#888;margin-top:4px"><span>$0</span><span id="priceLabel">$600</span></div>
+      </div>
+      <div class="filter-group">
+        <h4>Size</h4>
+        <div class="size-row">
+          <button class="size-btn" onclick="setSize('XS',this)">XS</button>
+          <button class="size-btn" onclick="setSize('S',this)">S</button>
+          <button class="size-btn" onclick="setSize('M',this)">M</button>
+          <button class="size-btn" onclick="setSize('L',this)">L</button>
+          <button class="size-btn" onclick="setSize('XL',this)">XL</button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- PRODUCTS -->
     <div>
-      <h1>The Collection</h1>
-      <p class="breadcrumb"><a href="index.html">Home</a> / Shop</p>
+      <div class="shop-header-bar">
+        <span class="result-count" id="resCount">Loading...</span>
+        <select class="sort-sel" id="sortSel" onchange="currentFilters.sort=this.value;loadProducts()">
+          <option value="newest">Newest</option>
+          <option value="price-low">Price: Low to High</option>
+          <option value="price-high">Price: High to Low</option>
+          <option value="rating">Top Rated</option>
+        </select>
+      </div>
+      <div class="product-grid" id="productGrid">
+        <div class="loading-msg">Loading products from Supabase...</div>
+      </div>
     </div>
   </div>
 
-  <!-- Shop Content -->
-  <section class="section">
-    <div class="container">
-      <div class="shop-layout">
-        <aside class="shop-sidebar">
-          <div class="filter-group">
-            <h4>Category</h4>
-            <div class="filter-options" id="category-filters">
-              <button class="filter-btn active" data-category="all">All</button>
-              <button class="filter-btn" data-category="outerwear">Outerwear</button>
-              <button class="filter-btn" data-category="dresses">Dresses</button>
-              <button class="filter-btn" data-category="tops">Tops</button>
-              <button class="filter-btn" data-category="pants">Pants</button>
-              <button class="filter-btn" data-category="accessories">Accessories</button>
-            </div>
-          </div>
-          <div class="filter-group">
-            <h4>Price Range</h4>
-            <div class="price-range">
-              <input type="range" id="price-filter" min="0" max="600" value="600" step="10">
-              <div class="price-range-labels"><span>$0</span><span id="price-max-label">$600</span></div>
-            </div>
-          </div>
-          <div class="filter-group">
-            <h4>Size</h4>
-            <div class="filter-options" id="size-filters" style="flex-direction:row;flex-wrap:wrap;gap:6px;">
-              <button class="filter-btn size-filter-btn" data-size="XS" style="padding:6px 12px;font-size:12px;">XS</button>
-              <button class="filter-btn size-filter-btn" data-size="S" style="padding:6px 12px;font-size:12px;">S</button>
-              <button class="filter-btn size-filter-btn" data-size="M" style="padding:6px 12px;font-size:12px;">M</button>
-              <button class="filter-btn size-filter-btn" data-size="L" style="padding:6px 12px;font-size:12px;">L</button>
-              <button class="filter-btn size-filter-btn" data-size="XL" style="padding:6px 12px;font-size:12px;">XL</button>
-            </div>
-          </div>
-        </aside>
-        <div class="shop-main">
-          <div class="shop-header">
-            <span class="results-count" id="results-count"></span>
-            <select class="sort-select" id="sort-select">
-              <option value="featured">Featured</option>
-              <option value="price-low">Price: Low to High</option>
-              <option value="price-high">Price: High to Low</option>
-              <option value="newest">Newest</option>
-              <option value="rating">Top Rated</option>
-            </select>
-          </div>
-          <!-- Mobile filter toggle -->
-          <button class="btn btn-outline btn-sm" id="mobile-filter-toggle" style="display:none;margin-bottom:20px;" onclick="document.querySelector('.shop-sidebar').style.display = document.querySelector('.shop-sidebar').style.display === 'block' ? 'none' : 'block'">
-            Filter & Sort
-          </button>
-          <div class="product-grid" id="shop-products"></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Footer -->
   <footer class="footer">
     <div class="container">
       <div class="footer-grid">
         <div class="footer-brand"><span class="nav-logo">PAY FOR LESS</span><p>Curated luxury fashion for the modern individual.</p></div>
         <div><h4>Quick Links</h4><ul><li><a href="shop.html">Shop All</a></li><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li></ul></div>
-        <div><h4>Customer Care</h4><ul><li><a href="contact.html">Contact Us</a></li><li><a href="#">Shipping & Returns</a></li><li><a href="#">Size Guide</a></li></ul></div>
-        <div><h4>Contact</h4><ul><li><a href="mailto:payforless24@gmail.com">payforless24@gmail.com</a></li><li><a href="tel:+971 56 291 8675</a></li></ul></div>
+        <div><h4>Customer Care</h4><ul><li><a href="contact.html">Contact Us</a></li><li><a href="#">Shipping & Returns</a></li></ul></div>
+        <div><h4>Contact</h4><ul><li><a href="mailto:payforless24@gmail.com">payforless24@gmail.com</a></li><li>+971 56 291 8675</li></ul></div>
       </div>
       <div class="footer-bottom"><p>&copy; 2026 PAY FOR LESS. All rights reserved.</p></div>
     </div>
   </footer>
 
-  <button class="whatsapp-float" onclick="openWhatsApp()" aria-label="WhatsApp">
+  <button class="whatsapp-float" onclick="window.open('https://wa.me/971562918675','_blank')" aria-label="WhatsApp">
     <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
   </button>
 
+  <div class="toast-c" id="toastC"></div>
+
+  <!-- SUPABASE SDK -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="supabase.js"></script>
-  <script src="utils.js"></script>
-  <script src="data.js"></script>
-  <script src="products.js"></script>
-  <script src="cart.js"></script>
-  <script src="app.js"></script>
+
   <script>
-    let currentFilters = { category: 'all', sort: 'featured', maxPrice: 600, size: null, search: '' };
+  // ══════════════════════════════════════
+  // SUPABASE — real credentials
+  // ══════════════════════════════════════
+  const SB_URL = 'https://fsnboewxnvdpidezykex.supabase.co';
+  const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZzbmJvZXd4bnZkcGlkZXp5a2V4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkwNjE3MzYsImV4cCI6MjA5NDYzNzczNn0.Y1YYE0XKmkqZSmSrJtMkCK9wvDOcWBr47W4ejuq6zZw';
+  const db = supabase.createClient(SB_URL, SB_KEY);
 
-    document.addEventListener('DOMContentLoaded', async () => {
-      // Read URL params
-      const urlCat = Utils.getParam('category');
-      const urlSearch = Utils.getParam('search');
-      const urlWishlist = Utils.getParam('wishlist');
-      if (urlCat) currentFilters.category = urlCat;
-      if (urlSearch) currentFilters.search = urlSearch;
+  // ══════════════════════════════════════
+  // STATE
+  // ══════════════════════════════════════
+  let currentFilters = { category: 'all', sort: 'newest', maxPrice: 600, size: null };
+  let wishlist = [];
+  let cart = JSON.parse(localStorage.getItem('pfl_cart') || '[]');
 
-      // Handle wishlist filter
-      if (urlWishlist === 'true') {
-        document.querySelector('.page-header h1').textContent = 'Your Wishlist';
-      }
+  // ══════════════════════════════════════
+  // INIT
+  // ══════════════════════════════════════
+  document.addEventListener('DOMContentLoaded', async () => {
+    // Read URL params
+    const params = new URLSearchParams(window.location.search);
+    const urlCat = params.get('category');
+    const urlWishlist = params.get('wishlist');
+    const urlSearch = params.get('search');
 
-      await renderShopProducts();
-
-      // Category filters
-      document.querySelectorAll('#category-filters .filter-btn').forEach(btn => {
-        if (btn.dataset.category === currentFilters.category) {
-          document.querySelector('#category-filters .filter-btn.active')?.classList.remove('active');
-          btn.classList.add('active');
-        }
-        btn.addEventListener('click', async () => {
-          document.querySelector('#category-filters .filter-btn.active')?.classList.remove('active');
-          btn.classList.add('active');
-          currentFilters.category = btn.dataset.category;
-          await renderShopProducts();
-        });
+    if (urlCat) {
+      currentFilters.category = urlCat;
+      document.querySelectorAll('.filter-btn').forEach(b => {
+        b.classList.toggle('active', b.textContent.toLowerCase() === urlCat || (urlCat === 'all' && b.textContent === 'All'));
       });
-
-      // Sort
-      document.getElementById('sort-select').addEventListener('change', async (e) => {
-        currentFilters.sort = e.target.value;
-        await renderShopProducts();
-      });
-
-      // Price range
-      document.getElementById('price-filter').addEventListener('input', async (e) => {
-        currentFilters.maxPrice = parseInt(e.target.value);
-        document.getElementById('price-max-label').textContent = '$' + e.target.value;
-        await renderShopProducts();
-      });
-
-      // Size filters
-      document.querySelectorAll('.size-filter-btn').forEach(btn => {
-        btn.addEventListener('click', async () => {
-          const wasActive = btn.classList.contains('active');
-          document.querySelectorAll('.size-filter-btn').forEach(b => b.classList.remove('active'));
-          if (!wasActive) { btn.classList.add('active'); currentFilters.size = btn.dataset.size; }
-          else { currentFilters.size = null; }
-          await renderShopProducts();
-        });
-      });
-
-      // Mobile filter toggle
-      if (window.innerWidth <= 768) {
-        document.getElementById('mobile-filter-toggle').style.display = 'block';
-      }
-    });
-
-    async function renderShopProducts() {
-
-  const wishlistOnly = Utils.getParam('wishlist') === 'true';
-
-  let products = await getFilteredProducts(currentFilters);
-
-  if (wishlistOnly) {
-    const wishlist = await DataStore.getWishlist();
-    products = products.filter(p => wishlist.includes(p.id));
-  }
-
-  const grid = document.getElementById('shop-products');
-  const count = document.getElementById('results-count');
-
-  if (count) {
-    count.textContent =
-      `${products.length} product${products.length !== 1 ? 's' : ''}`;
-  }
-
-  if (grid) {
-
-    if (products.length) {
-
-      await renderProductGrid(products, grid);
-
-    } else {
-
-      grid.innerHTML = `
-        <p style="grid-column:1/-1;text-align:center;color:var(--color-gray);padding:60px 0;">
-          No products found matching your criteria.
-        </p>
-      `;
-
+    }
+    if (urlWishlist === 'true') {
+      document.getElementById('pageTitle').textContent = 'My Wishlist';
+      document.getElementById('pageSub').textContent = 'Your saved items';
+    }
+    if (urlSearch) {
+      currentFilters.search = urlSearch;
+      document.getElementById('pageTitle').textContent = `Search: "${urlSearch}"`;
     }
 
-    Utils.initScrollAnimations();
+    // Load wishlist from localStorage
+    try { wishlist = JSON.parse(localStorage.getItem('pfl_wishlist') || '[]'); } catch { wishlist = []; }
+    updateBadges();
+
+    // Nav scroll
+    window.addEventListener('scroll', () => {
+      document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // Hamburger
+    const ham = document.querySelector('.hamburger');
+    const mob = document.querySelector('.mobile-menu');
+    if (ham && mob) ham.addEventListener('click', () => { ham.classList.toggle('active'); mob.classList.toggle('active'); });
+
+    // Search
+    const sBtn = document.querySelector('.nav-search-btn');
+    const sOv  = document.querySelector('.search-overlay');
+    const sCl  = document.querySelector('.search-close');
+    const sInp = document.querySelector('.search-input');
+    if (sBtn && sOv) sBtn.addEventListener('click', () => { sOv.classList.add('active'); sInp?.focus(); });
+    if (sCl  && sOv) sCl.addEventListener('click', () => sOv.classList.remove('active'));
+    if (sInp) sInp.addEventListener('keydown', e => { if (e.key === 'Enter' && sInp.value.trim()) window.location.href = 'shop.html?search=' + encodeURIComponent(sInp.value.trim()); });
+
+    // Mini cart
+    const cartBtn = document.querySelector('.nav-cart-btn');
+    const miniPanel = document.querySelector('.mini-cart-panel');
+    if (cartBtn && miniPanel) {
+      cartBtn.addEventListener('click', e => { e.preventDefault(); miniPanel.classList.toggle('active'); renderMiniCart(); });
+      document.addEventListener('click', e => { if (!e.target.closest('.mini-cart-panel') && !e.target.closest('.nav-cart-btn')) miniPanel.classList.remove('active'); });
+    }
+
+    await loadProducts();
+  });
+
+  // ══════════════════════════════════════
+  // LOAD PRODUCTS FROM SUPABASE
+  // ══════════════════════════════════════
+  async function loadProducts() {
+    const grid = document.getElementById('productGrid');
+    grid.innerHTML = '<div class="loading-msg">Loading...</div>';
+
+    try {
+      let query = db.from('products').select('*');
+
+      // Apply filters
+      if (currentFilters.category && currentFilters.category !== 'all') {
+        query = query.eq('category', currentFilters.category);
+      }
+      if (currentFilters.maxPrice) {
+        query = query.lte('price', currentFilters.maxPrice);
+      }
+      if (currentFilters.size) {
+        query = query.contains('sizes', [currentFilters.size]);
+      }
+      if (currentFilters.search) {
+        query = query.or(`name.ilike.%${currentFilters.search}%,description.ilike.%${currentFilters.search}%`);
+      }
+
+      // Sorting
+      switch (currentFilters.sort) {
+        case 'price-low':  query = query.order('price', { ascending: true }); break;
+        case 'price-high': query = query.order('price', { ascending: false }); break;
+        case 'rating':     query = query.order('rating', { ascending: false }); break;
+        default:           query = query.order('created_at', { ascending: false }); break;
+      }
+
+      const { data, error } = await query;
+
+      if (error) {
+        grid.innerHTML = `<div class="empty-msg">Error: ${error.message}<br><small>Check your Supabase setup</small></div>`;
+        console.error('Supabase error:', error);
+        return;
+      }
+
+      // Wishlist filter
+      const params = new URLSearchParams(window.location.search);
+      let products = data || [];
+      if (params.get('wishlist') === 'true') {
+        products = products.filter(p => wishlist.includes(p.id));
+      }
+
+      document.getElementById('resCount').textContent = `${products.length} product${products.length !== 1 ? 's' : ''}`;
+
+      if (!products.length) {
+        grid.innerHTML = '<div class="empty-msg">No products found.<br><small>Try a different filter or add products via the admin panel.</small></div>';
+        return;
+      }
+
+      // Render all cards — NO async per card, wishlist is already in memory
+      grid.innerHTML = products.map(p => renderCard(p)).join('');
+
+    } catch (err) {
+      grid.innerHTML = `<div class="empty-msg">Failed to load products.<br><small>${err.message}</small></div>`;
+      console.error(err);
+    }
   }
-}
+
+  // ══════════════════════════════════════
+  // RENDER CARD — synchronous (fast!)
+  // ══════════════════════════════════════
+  function renderCard(p) {
+    const isWished = wishlist.includes(p.id);
+    const img = (p.images && p.images.length > 0) ? p.images[0] : 'hero-1.png';
+    const colors = (p.colors || []).slice(0, 3);
+    const badge = p.badge || '';
+    return `
+      <div class="product-card">
+        <div class="product-img" onclick="window.location.href='product.html?id=${p.id}'">
+          <img src="${img}" alt="${p.name}" loading="lazy" onerror="this.src='hero-1.png'">
+          ${badge ? `<span class="product-badge${badge==='New'?' new':''}">${badge}</span>` : ''}
+          <button class="wish-btn ${isWished?'wished':''}" onclick="event.stopPropagation();toggleWish('${p.id}',this)" title="Wishlist">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="${isWished?'currentColor':'none'}" stroke="currentColor" stroke-width="2">
+              <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/>
+            </svg>
+          </button>
+          <button class="quick-add" onclick="event.stopPropagation();quickAdd('${p.id}','${p.name}',${p.price},'${img}','${(p.sizes||[])[0]||''}','${(p.colors||[])[0]?.name||''}')">
+            Quick Add to Cart
+          </button>
+        </div>
+        <div class="product-info" onclick="window.location.href='product.html?id=${p.id}'">
+          <div class="product-cat">${p.category || ''}</div>
+          <div class="product-name">${p.name}</div>
+          <div style="display:flex;align-items:center;justify-content:space-between">
+            <div class="product-price">$${p.price}</div>
+            <div class="product-colors">
+              ${colors.map(c => `<span class="cdot" style="background:${c.hex}" title="${c.name}"></span>`).join('')}
+            </div>
+          </div>
+        </div>
+      </div>`;
+  }
+
+  // ══════════════════════════════════════
+  // FILTERS
+  // ══════════════════════════════════════
+  function setCategory(cat, btn) {
+    currentFilters.category = cat;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    loadProducts();
+  }
+  function setSize(size, btn) {
+    const wasActive = btn.classList.contains('active');
+    document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
+    if (!wasActive) { btn.classList.add('active'); currentFilters.size = size; }
+    else { currentFilters.size = null; }
+    loadProducts();
+  }
+
+  // ══════════════════════════════════════
+  // CART
+  // ══════════════════════════════════════
+  function quickAdd(id, name, price, image, size, color) {
+    const idx = cart.findIndex(c => c.productId === id && c.size === size && c.color === color);
+    if (idx !== -1) { cart[idx].quantity += 1; }
+    else { cart.push({ id: 'c_' + Date.now(), productId: id, name, price, image, size, color, quantity: 1 }); }
+    localStorage.setItem('pfl_cart', JSON.stringify(cart));
+    updateBadges();
+    toast(name + ' added to cart');
+  }
+
+  function renderMiniCart() {
+    const el = document.getElementById('mini-cart-items');
+    if (!el) return;
+    if (!cart.length) { el.innerHTML = '<p class="mini-cart-empty">Your cart is empty</p>'; return; }
+    const total = cart.reduce((s, i) => s + i.price * i.quantity, 0);
+    el.innerHTML = cart.slice(0, 3).map(i => `
+      <div class="mini-cart-item">
+        <img src="${i.image}" alt="${i.name}" onerror="this.src='hero-1.png'">
+        <div>
+          <p class="mini-cart-name">${i.name.substring(0, 25)}</p>
+          <p class="mini-cart-meta">${i.quantity} × $${i.price}</p>
+        </div>
+      </div>`).join('') +
+      `${cart.length > 3 ? `<p class="mini-cart-more">+${cart.length - 3} more items</p>` : ''}
+      <div class="mini-cart-total"><span>Total:</span><span>$${total.toFixed(0)}</span></div>
+      <a href="cart.html" class="btn btn-primary btn-full btn-sm">View Cart</a>`;
+  }
+
+  // ══════════════════════════════════════
+  // WISHLIST
+  // ══════════════════════════════════════
+  function toggleWish(id, btn) {
+    const idx = wishlist.indexOf(id);
+    let isNow;
+    if (idx !== -1) { wishlist.splice(idx, 1); isNow = false; }
+    else { wishlist.push(id); isNow = true; }
+    localStorage.setItem('pfl_wishlist', JSON.stringify(wishlist));
+    btn.classList.toggle('wished', isNow);
+    btn.querySelector('svg').setAttribute('fill', isNow ? 'currentColor' : 'none');
+    updateBadges();
+    toast(isNow ? 'Added to wishlist' : 'Removed from wishlist');
+  }
+
+  // ══════════════════════════════════════
+  // BADGES & TOAST
+  // ══════════════════════════════════════
+  function updateBadges() {
+    const cc = cart.reduce((n, i) => n + i.quantity, 0);
+    document.querySelectorAll('.cart-badge').forEach(b => { b.textContent = cc; b.style.display = cc > 0 ? 'flex' : 'none'; });
+    const wc = wishlist.length;
+    document.querySelectorAll('.wishlist-badge').forEach(b => { b.textContent = wc; b.style.display = wc > 0 ? 'flex' : 'none'; });
+  }
+
+  function toast(msg) {
+    const t = document.createElement('div');
+    t.className = 'toast-item';
+    t.textContent = msg;
+    document.getElementById('toastC').appendChild(t);
+    requestAnimationFrame(() => requestAnimationFrame(() => t.classList.add('in')));
+    setTimeout(() => { t.classList.remove('in'); setTimeout(() => t.remove(), 350); }, 2800);
+  }
   </script>
+
+  <!-- Keep existing nav/cart JS working -->
+  <script src="utils.js"></script>
 </body>
 </html>
